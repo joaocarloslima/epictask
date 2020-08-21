@@ -10,7 +10,8 @@ Esse repositório faz parte da disciplina de Digital Business Enablement da FIAP
 
 - [X] Tratamento inicial das rotas
 - [X] Template com Thymeleaf
-- [ ] Cadastro de usuário
+- [X] Cadastro de usuário
 - [ ] Validação dos dados de cadastro
 - [ ] Lista de usuários
 - [ ] Exclusão de usuários
+- [ ] Internacionalização
