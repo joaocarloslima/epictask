@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<head th:include="_template :: head" ></head>
+
 <body>
-	<h1>Equipe</h1>
+	<h1>Epic Task</h1>
 	
 <nav th:include="_template :: menu" ></nav>
 
-<a href="/user/new">Novo usuário</a>
+<a href="/user/new" class="btn-sm btn-primary">
+	<span class="material-icons">add</span>
+</a>
+
+<ul th:each="user : ${users}">
+	<li th:text="${user.name}"></li>
+</ul>
+
 </body>
 </html>

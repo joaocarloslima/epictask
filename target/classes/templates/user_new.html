@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<head th:include="_template :: head" ></head>
+
 <body>
+<div class="content">
 
-	<h1>Novo usuário</h1>
+	<h2>Novo usuário</h2>
 
-	<form action="/user" method="POST">
-		<div>
-			<label for="name">Nome completo</label> 
-			<input id="name" name="name" value="Joao Carlos Lima" />
+	<form action="/user" method="POST" th:object="${user}">
+		<input 
+			name="name" 
+			type="text" 
+			placeholder="Nome completo" 
+			value="Joao Carlos Lima" 
+			th:classappend="${#fields.hasErrors('name')} ? invalid" 
+		/>
+		<span th:errors="*{name}"></span>
+		
+		<input 
+			name="email" 
+			type="text" 
+			placeholder="E-mail" 
+			value="joaocarlos@fiap.com.br"
+			th:classappend="${#fields.hasErrors('email')} ? invalid" 
+		/>
+		<span th:errors="*{email}"></span>
+
+		<input 
+			name="pass" 
+			type="password" 
+			placeholder="Senha" 
+			value="8dygdnk_&*"
+			th:classappend="${#fields.hasErrors('pass')} ? invalid"  
+		/>
+		<span th:errors="*{pass}"></span>
+
+		<div class="actions">
+			<a href="/user" class="btn">Cancelar</a>
+			<button class="btn blue">Salvar</button>
 		</div>
-		<div>
-			<label for="email">E-mail</label> 
-			<input id="email" name="email" value="joaocarlos@fiap.com.br" />
-		</div>
-		<div>
-			<label for="pass">Senha</label> 
-			<input id="pass" name="pass" type="password" value="8dygdnk_&*" />
-		</div>
-		<a href="/user">Cancelar</a>
-		<button>Salvar</button>
+
 	</form>
+	
+</div>
 
 </body>
 </html>
