@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<title>Epic Task</title>
+	<link rel="stylesheet" type="text/css" th:href="@{~/global.css}">
 </head>
 <body>
 
@@ -10,7 +11,7 @@
 		<ul>
 			<li><a href="/task">Tarefas</a></li>
 			<li><a href="#">Concluídos</a></li>
-			<li><a href="/user">Equipe</a></li>
+			<li><a href="/user" class="active">Equipe</a></li>
 		</ul>
 	</nav>
 

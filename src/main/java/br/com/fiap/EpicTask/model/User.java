@@ -4,14 +4,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity(name = "users")
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank(message = "o nome é obrigatório")
 	private String name;
+	
+	@NotBlank (message = "o e-mail é obrigatório")
+	@Email(message = "e-mail inválido")
 	private String email;
+	
+	@Size(min = 8, message = "a senha deve ter pelo menos 8 caracteres")
 	private String pass;
 	
 	

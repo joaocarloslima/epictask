@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<head th:include="_template :: head"></head>
+
 <body>
-	<h1>Usuários</h1>
+	<h1>Epic Task</h1>
 	
 	<nav th:include="_template :: menu"></nav>
 	
-	<a href="/user/new">novo usuário</a>
+	<a href="/user/new" class="btn-sm btn-primary">
+		<span class="material-icons">add</span>
+	</a>
+	
+<div class="content">
+	<div class="user" th:each="user : ${users}">
+		<img class="avatar" alt="" src="">
+		<div class="user-info">
+			<h4 th:text="${user.name}"></h4>
+			<p th:text="${user.email}"></p>
+		</div>
+		<div class="user-action">
+			<a>
+				<span class="material-icons yellow">create</span>
+			</a>
+			<a>
+				<span class="material-icons red">delete</span>
+			</a>
+		</div>
+	</div>
+	
+		
+</div>
+
 	
 </body>
 </html>
