@@ -10,11 +10,11 @@
 
 <body>
 
-<nav th:fragment="menu">
+<nav th:fragment="menu(page)">
 	<ul>
-		<li><a href="/task">Tarefas</a></li>
-		<li><a href="#">Concluídas</a></li>
-		<li><a href="/user" class="active">Equipe</a></li>
+		<li><a href="/task" th:classappend="${page=='task'} ? active" th:text="#{menu.task}"></a></li>
+		<li><a href="#" th:text="#{menu.done}"></a></li>
+		<li><a href="/user" th:classappend="${page=='team'} ? active" th:text="#{menu.team}"></a></li>
 	</ul>
 </nav>
 

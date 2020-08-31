@@ -6,12 +6,38 @@
 <body>
 	<h1>Epic Task</h1>
 	
-<nav th:include="_template :: menu" ></nav>
+<nav th:include="_template :: menu('team')" ></nav>
 
 <a href="/user/new" class="btn-sm btn-primary">
 	<span class="material-icons">add</span>
 </a>
 
+<div class="content">
+
+	<span class="alert" th:if="${message != null}" th:text="${message}"></span>
+
+	<div class="user" th:each="user : ${users}">
+		<img class="avatar" alt="" src="https://avatars.githubusercontent.com/joaocarloslima">
+		
+		<div class="user-info">
+			<h4 th:text="${user.name}"></h4>
+			<p th:text="${user.email}"></p>
+		</div>
+
+		<div class="user-action">
+			<a><span class="material-icons yellow">create</span></a>
+			<a th:href="${'/user/delete/' + user.id}"><span class="material-icons red">delete</span></a>
+		</div>
+	</div>
+	
+</div>
 
 </body>
 </html>
+
+
+
+
+
+
+

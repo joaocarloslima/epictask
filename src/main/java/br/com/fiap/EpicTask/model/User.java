@@ -14,7 +14,7 @@ public class User {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "{user.name.empty}")
 	private String name;
 
 	@NotBlank (message = "o e-mail é obrigatório")
