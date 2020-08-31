@@ -12,5 +12,9 @@ Esse repositório faz parte da disciplina de Digital Business Enablement da FIAP
 - [X] Template com Thymeleaf
 - [X] Cadastro de usuário
 - [X] Validação dos dados de cadastro
-- [ ] Lista de usuários
-- [ ] Exclusão de usuários
+- [X] Lista de usuários
+- [X] Exclusão de usuários
+- [X] Atualização de usuários
+- [ ] Internacionalização
+- [ ] Foto dos usuários
+- [ ] CRUD de Tarefas
