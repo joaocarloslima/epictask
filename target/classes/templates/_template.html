@@ -7,11 +7,11 @@
 </head>
 <body>
 
-	<nav th:fragment="menu">
+	<nav th:fragment="menu(page)">
 		<ul>
-			<li><a href="/task">Tarefas</a></li>
-			<li><a href="#">Concluídos</a></li>
-			<li><a href="/user" class="active">Equipe</a></li>
+			<li><a href="/task" th:text="#{menu.task}" th:classappend="${page=='task'}?active">Tarefas</a></li>
+			<li><a href="#" th:text="#{menu.done}" th:classappend="${page=='done'}?active">Concluídos</a></li>
+			<li><a href="/user" th:text="#{menu.team}" th:classappend="${page=='team'}?active">Equipe</a></li>
 		</ul>
 	</nav>
 

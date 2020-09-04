@@ -14,10 +14,10 @@ public class User {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "o nome é obrigatório")
+	@NotBlank(message = "{user.name.blank}")
 	private String name;
 	
-	@NotBlank (message = "o e-mail é obrigatório")
+	@NotBlank (message = "{user.email.blank}")
 	@Email(message = "e-mail inválido")
 	private String email;
 	

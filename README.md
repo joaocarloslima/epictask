@@ -13,8 +13,9 @@ Esse repositório faz parte da disciplina de Digital Business Enablement da FIAP
 - [X] Cadastro de usuário
 - [X] Validação dos dados de cadastro
 - [X] Lista de usuários
-- [ ] Exclusão de usuários
+- [X] Exclusão de usuários
 - [ ] Internacionalização
 - [ ] Foto do usuário
-- [ ] Editar usuário
-- [ ] Navegação (class active)
+- [X] Editar usuário
+- [X] Navegação (class active)
+- [ ] CRUD de Tarefas
