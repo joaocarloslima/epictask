@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@GetMapping()
 	public ModelAndView user() {
@@ -42,14 +47,14 @@ public class UserController {
 	public String save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "user_new";
 		repository.save(user);
-		redirect.addFlashAttribute("message", "Usuário cadastrado com sucesso");
+		redirect.addFlashAttribute("message", getMessage("message.newuser.success"));
 		return "redirect:/user";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable Long id, RedirectAttributes redirect) {
 		repository.deleteById(id);
-		redirect.addFlashAttribute("message", "Usuário apagado com sucesso");
+		redirect.addFlashAttribute("message", getMessage("message.deleteuser.success"));
 		return "redirect:/user";
 	}
 	
@@ -62,9 +67,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
-	public String updateUser(User user) {
+	public String updateUser(@Valid User user, BindingResult result, RedirectAttributes redirect) {
+		if (result.hasErrors()) return "user_edit";
 		repository.save(user);
+		redirect.addFlashAttribute("message", getMessage("message.edituser.success"));
 		return "redirect:/user"; 
+	}
+	
+	private String getMessage(String code) {
+		return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
 	}
 	
 	
