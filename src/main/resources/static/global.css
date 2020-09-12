@@ -21,18 +21,12 @@
 
 html, body {height:100%;}
 
-
-.yellow { color: #FED851 }
-.red { color: #BF0059 }
-.blue { color: #13AFE0 }
-
 body{
 	background: var(--dark-color);
 	font-family: var(--primary-font);
 	text-decoration: none;
 	color: var(--font-color);
 	margin: 0 20px;	
-	overflow:hidden;
 }
 
 .content{
@@ -54,6 +48,10 @@ a{
 a:visited{
 	color:var(--font-color);
 }
+
+.yellow, a.yellow { color: #FED851 }
+.red, a.red { color: #BF0059 }
+.blue { color: #13AFE0 }
 
 nav {
 	max-width: 1200px;
@@ -160,7 +158,10 @@ form span{
 	color: var(--active-color);
 }
 
-input[type="text"], input[type="password"]{
+input[type="text"], 
+input[type="password"], 
+input[type="number"], 
+textarea{
 	height: 2rem;
 	padding: 1rem;
 	font: var(--primaty-font);
@@ -170,21 +171,32 @@ input[type="text"], input[type="password"]{
 	box-shadow: inset -4px -4px 10px rgba(85, 85, 85, 0.25), 
 				inset 4px 4px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
-	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
-input[type="text"]:focus, input[type="password"]:focus{
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="number"]:focus, 
+textarea:focus{
 	box-shadow: 0px 0px 10px #00A439, 
 				inset -4px -4px 10px rgba(85, 85, 85, 0.25), 
 				inset 4px 4px 10px rgba(0, 0, 0, 0.25);	
 }
 
-input[type="text"].invalid, input[type="password"].invalid{
+input[type="text"].invalid, 
+input[type="password"].invalid, 
+input[type="number"].invalid, 
+textarea.invalid{
 	box-shadow: 0px 0px 10px var(--active-color), 
 				inset -4px -4px 10px rgba(85, 85, 85, 0.25), 
 				inset 4px 4px 10px rgba(0, 0, 0, 0.25);	
 }
 
+textarea{
+	resize: vertical;
+	height: 5rem;
+	width: 20rem;
+}
 
 .actions{
 	display: flex;
@@ -214,10 +226,140 @@ button.btn{
 	color: #00A439;
 }
 
+.tasks{
+	width: 100%;
+	max-width:1200px;
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+    margin: 2rem auto;
+}
+
+.card-task {
+	position: relative;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	box-shadow: -4px -4px 10px rgba(85, 85, 85, 0.25), 
+				4px 4px 10px rgba(0, 0, 0, 0.25);
+
+}
+
+.card-task .avatar{
+	position: absolute;
+	right: 10px;
+}
+
+.card-task h2{
+	font-weight: 400;
+}
+
+.card-task .point{
+	display: flex;
+}
+
+.card-task .point .material-icons{
+	color: #FFD700;
+}
+
+.status{
+	position: relative;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	box-shadow: inset 0 0 50px #000;
+	background: #222;
+	margin: auto;
+}
+
+.status .number{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.5rem;
+}
+
+.status svg{
+	position: relative;
+	width: 150px;
+	height: 150px;
+}
+
+.status svg circle{
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke: #191919;
+	stroke-width: 10;
+	stroke-linecap: round;
+	transform: translate(5px,5px);
+}
+
+.status svg circle:nth-child(2){
+	stroke-dasharray:440;
+	stroke-dashoffset:calc(440 - (440 * 90) / 100);
+	stroke: #BF0059;
+}
+
+.btn-hand{
+	height: 36px;
+	width: 36px;
+	border-radius: 50%;
+	background: transparent;
+	border: none;
+	box-shadow: -4px -4px 12px rgba(75, 75, 75, 0.25), 
+				 4px 4px 12px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	float: right;
+}
+
+.btn-hand span{
+	color: #13AFE0;	
+}
+
+.btn-hand span:hover{
+	text-shadow: 0px 0px 5px #13AFE0, 0px 0px 15px #13AFE0;	
+}
+
+.btn-down{
+		box-shadow: inset -4px -4px 12px rgba(75, 75, 75, 0.25), 
+				 	inset 4px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-down span{
+	color: #E23221;	
+}
+
+.btn-down span:hover{
+	text-shadow: 0px 0px 5px #E23221, 0px 0px 15px #E23221;	
+}
+
 footer {
 	line-height: 2rem;
 	position: absolute;
 	bottom: 0;
 }
+
+@media (max-width: 900px) {
+	.tasks{
+	    grid-template-columns: repeat(2, 1fr);
+	
+	}
+}
+
+@media (max-width: 600px) {
+	.tasks{
+	    grid-template-columns: 1fr;
+	
+	}
+}
+
 
 

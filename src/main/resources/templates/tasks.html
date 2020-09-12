@@ -8,6 +8,39 @@
 
 	<nav th:include="_template :: menu('task')"></nav>
 
+	<a href="/task/new" class="btn-sm btn-primary"> 
+		<span class="material-icons">add</span>
+	</a>
 
+
+	<div class="content">
+		<span class="alert" th:if="${message != null}" th:text="${message}"></span>
+		
+		<div class="tasks">
+			<div th:each="task : ${tasks}" class="card-task">
+				<img class="avatar" src="https://avatars.githubusercontent.com/joaocarloslima">
+				<h2 th:text="${task.title}"></h2>
+				<div class="point">
+					<span class="material-icons">star</span>
+					<span th:text="${task.point}"></span>
+				</div> 
+			
+				<div class="status">
+					<svg>
+						<circle cx="70" cy="70" r="70"></circle>
+						<circle cx="70" cy="70" r="70" th:style="${'stroke-dashoffset:' + (440 - (440*task.status)/100 )} "></circle>
+					</svg>
+					<div class="number">
+						<h2 th:text="${task.status + '%'}"></h2>
+					</div>
+				</div>
+				
+				<button class="btn-hand"><span class="material-icons">pan_tool</span></button>
+				<a th:href="${'/task/' + task.id}" class="btn btn-sm yellow"><span class="material-icons">edit</span></a>
+			</div>
+				
+		</div>
+	</div>
+	
 </body>
 </html>
