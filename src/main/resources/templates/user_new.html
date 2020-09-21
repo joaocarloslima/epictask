@@ -1,49 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
+
 <head th:include="_template :: head"></head>
 
 <body>
 
 <div class="content">
-	<h2>Novo usuário</h2>
-
-	<form action="/user" method="POST" th:object="${user}">
-		
+	<h1 th:text="#{form.title.newuser}"></h1>
+	
+	<form th:action="@{/user}" method="POST" th:object="${user}">
 		<input 
-			type="text" 
-			name="name" 
-			value="Joao Carlos Lima" 
-			placeholder="Nome completo"
-			th:classappend="${#fields.hasErrors('name')} ? invalid" 
+			type="text"
+			th:placeholder="#{form.label.name}"
+			th:field="*{name}"
+			th:classappend="${#fields.hasErrors('name')} ? invalid"
 		/>
 		<span th:errors="*{name}"></span>
-		
+
+		<input 
+			type="text"
+			th:placeholder="#{form.label.githubuser}"
+			th:field="*{gitHubUser}"
+			th:classappend="${#fields.hasErrors('gitHubUser')} ? invalid"
+		/>
+		<span th:errors="*{gitHubUser}"></span>
+
 		<input 
 			type="text" 
-			name="email" 
-			value="joaocarlos@fiap.com.br" 
-			placeholder="E-mail"
-			th:classappend="${#fields.hasErrors('email')} ? invalid" 
+			th:placeholder="#{form.label.email}"
+			th:field="*{email}"
+			th:classappend="${#fields.hasErrors('email')} ? invalid"
 		/>
 		<span th:errors="*{email}"></span>
 
 		<input 
-			name="pass" 
 			type="password" 
-			value="8dygdnk_&*" 
-			placeholder="Senha"
-			th:classappend="${#fields.hasErrors('pass')} ? invalid"  
+			th:placeholder="#{form.label.pass}"
+			th:field="*{pass}"
+			th:classappend="${#fields.hasErrors('pass')} ? invalid"
 		/>
 		<span th:errors="*{pass}"></span>
 
 		<div class="actions">
-			<a class="btn" href="/user">Cancelar</a>
-			<button class="btn blue">Salvar</button>
+			<a href="/user" class="btn" th:text="#{form.button.cancel}"></a>
+			<button class="btn blue" th:text="#{form.button.save}"></button>
 		</div>
-		
 	</form>
-	
-	</div>
+</div>
+
 
 </body>
 </html>
