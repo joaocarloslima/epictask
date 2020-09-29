@@ -13,7 +13,10 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Data;
+
 @Entity(name = "users")
+@Data
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -37,45 +40,10 @@ public class User implements UserDetails {
 	public String getAvatar() {
 		return "https://avatars.githubusercontent.com/" + gitHubUser;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public String getGitHubUser() {
-		return gitHubUser;
-	}
-
-	public void setGitHubUser(String gitHubUser) {
-		this.gitHubUser = gitHubUser;
+	
+	public String getFirstName() {
+		String[] arrayName = this.name.split(" ");
+		return arrayName[0];
 	}
 
 	@Override

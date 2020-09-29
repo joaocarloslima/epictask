@@ -28,24 +28,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers("/task/**", "/user/**")
 				.authenticated()
+			.antMatchers("/h2.console/**")
+				.permitAll()
 				.and()
 			.formLogin()
-				;
-	}
-	
-	public static void main(String[] args) {
+				.loginPage("/login")
+		;
 		
-		System.out.println(new BCryptPasswordEncoder().encode("1234567890"));
+		http.headers().frameOptions().disable();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

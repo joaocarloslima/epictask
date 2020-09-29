@@ -16,6 +16,12 @@
 		<li><a href="/task" th:classappend="${page=='task'} ? active" th:text="#{menu.task}"></a></li>
 		<li><a href="#" th:text="#{menu.done}"></a></li>
 		<li><a href="/user" th:classappend="${page=='team'} ? active" th:text="#{menu.team}"></a></li>
+		<li><a href="/logout">
+				<!--  span sec:authentication="name">test</span -->
+				<span th:text="${#authentication.getPrincipal().getFirstName()}"></span>
+				<span class= 'material-icons'>exit_to_app</span>
+			</a>
+		</li>
 	</ul>
 </nav>
 
