@@ -1,6 +1,5 @@
 package br.com.fiap.EpicTask.controller;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,21 +20,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.EpicTask.model.Task;
 import br.com.fiap.EpicTask.model.User;
-import br.com.fiap.EpicTask.repository.TaskRepository;
+import br.com.fiap.EpicTask.service.TaskService;
 
 @Controller
 @RequestMapping("/task")
 public class TaskController {
 	
 	@Autowired
-	private TaskRepository repository;
+	private MessageSource messageSource;
 	
 	@Autowired
-	private MessageSource messageSource;
+	private TaskService service;
 
 	@GetMapping()
 	public ModelAndView list() {
-		List<Task> tasks = repository.findAll();
+		List<Task> tasks = service.findPending();
 		ModelAndView modelAndView = new ModelAndView("tasks");
 		modelAndView.addObject("tasks", tasks);
 		return modelAndView;
@@ -49,52 +48,45 @@ public class TaskController {
 	@PostMapping()
 	public String save(@Valid Task task, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "task_new";
-		repository.save(task);
+		service.create(task);
 		redirect.addFlashAttribute("message", getMessage("message.newtask.success"));
 		return "redirect:/task";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteTask(@PathVariable Long id, RedirectAttributes redirect) {
-		repository.deleteById(id);
+		service.delete(id);
 		redirect.addFlashAttribute("message", getMessage("message.deletetask.success"));
 		return "redirect:/task";
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView editUserForm(@PathVariable Long id) {
-		Optional<Task> task = repository.findById(id);
+		Optional<Task> task = service.get(id);
 		ModelAndView modelAndView = new ModelAndView("task_edit");
 		modelAndView.addObject("task", task);
 		return modelAndView;		
 	}
 	
 	@PostMapping("/update")
-	public String updateUser(@Valid Task task, BindingResult result, RedirectAttributes redirect) {
+	public String update(@Valid Task task, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "task_edit";
-		repository.save(task);
+		service.update(task);
 		redirect.addFlashAttribute("message", getMessage("message.edittask.success"));
 		return "redirect:/task"; 
 	}
 	
 	@GetMapping("/take/{id}")
 	public String take(@PathVariable Long id, Authentication authentication) {
-		Task task = repository.getOne(id);
-		if (task.getUser() == null) {
-			User user = (User) authentication.getPrincipal();
-			task.setUser(user);
-			repository.save(task);
-		}
+		User user = (User) authentication.getPrincipal();
+		service.take(id, user);
 		return "redirect:/task"; 
 	}
 	
 	@GetMapping("/drop/{id}")
-	public String drop(@PathVariable Long id, Principal principal ) {
-		Task task = repository.getOne(id);
-		if (principal.getName().equals(task.getUser().getEmail())) {
-			task.setUser(null);
-			repository.save(task);	
-		}
+	public String drop(@PathVariable Long id, Authentication authentication ) {
+		User user = (User) authentication.getPrincipal();
+		service.drop(id, user);
 		return "redirect:/task"; 
 
 	}

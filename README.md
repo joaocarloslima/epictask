@@ -19,5 +19,18 @@ Esse repositório faz parte da disciplina de Digital Business Enablement da FIAP
 - [X] Navegação (class active)
 - [X] CRUD de Tarefas
 - [X] Autorização e Autenticação
-- [ ] Exibir usuário logado
-- [ ] Formulário de login
+- [X] Exibir usuário logado
+- [X] Formulário de login
+- [X] Controle de perfis de usuário
+- [X] Controle de pontuação
+- [ ] Páginação
+- [ ] Ordenação
+- [ ] Lista de tarefas concluídas
+- [ ] Ranking
+
+## Refatoração
+
+- [X] Adicionar camada de service Task
+- [ ] Adicionar camada de service User
+- [X] método user.toStore()
+- [ ] Personalizar erros

@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import br.com.fiap.EpicTask.model.User;
 import br.com.fiap.EpicTask.repository.UserRepository;
+import br.com.fiap.EpicTask.security.SecurityConfiguration;
 
 @Controller
 @RequestMapping("/user")
@@ -48,7 +47,7 @@ public class UserController {
 	@PostMapping()
 	public String save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "user_new";
-		user.setPass(new BCryptPasswordEncoder().encode(user.getPass()));
+		user.setPass(SecurityConfiguration.passwordEncoder().encode(user.getPass()));
 		repository.save(user);
 		redirect.addFlashAttribute("message", getMessage("message.newuser.success"));
 		return "redirect:/user";

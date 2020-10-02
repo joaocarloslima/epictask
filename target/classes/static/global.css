@@ -84,6 +84,11 @@ nav li a:hover{
 	color: var(--active-color);
 }
 
+.nav-user{
+	display: flex;
+	align-items: center;
+}
+
 .btn-sm{
 	border-radius: 50%;
 	width: 30px;
@@ -339,6 +344,11 @@ button.btn{
 
 .btn-down span:hover{
 	text-shadow: 0px 0px 5px #E23221, 0px 0px 15px #E23221;	
+}
+
+.score{
+	display: flex;
+	align-items: center;
 }
 
 footer {

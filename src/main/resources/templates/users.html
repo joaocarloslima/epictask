@@ -21,6 +21,10 @@
 		<div class="user-info">
 			<h4 th:text="${user.name}"></h4>
 			<p th:text="${user.email}"></p>
+			<p class="score">
+				<span class="material-icons yellow">star</span>
+				<span th:text="${user.point}"></span>
+			</p>
 		</div>
 		<div class="user-action">
 			<a th:href="${'/user/' + user.id }">
