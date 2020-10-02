@@ -1,5 +1,6 @@
 package br.com.fiap.EpicTask.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.EpicTask.model.Task;
+import br.com.fiap.EpicTask.model.User;
 import br.com.fiap.EpicTask.repository.TaskRepository;
 
 @Controller
@@ -72,6 +75,28 @@ public class TaskController {
 		repository.save(task);
 		redirect.addFlashAttribute("message", getMessage("message.edittask.success"));
 		return "redirect:/task"; 
+	}
+	
+	@GetMapping("/take/{id}")
+	public String take(@PathVariable Long id, Authentication authentication) {
+		Task task = repository.getOne(id);
+		if (task.getUser() == null) {
+			User user = (User) authentication.getPrincipal();
+			task.setUser(user);
+			repository.save(task);
+		}
+		return "redirect:/task"; 
+	}
+	
+	@GetMapping("/drop/{id}")
+	public String drop(@PathVariable Long id, Principal principal ) {
+		Task task = repository.getOne(id);
+		if (principal.getName().equals(task.getUser().getEmail())) {
+			task.setUser(null);
+			repository.save(task);	
+		}
+		return "redirect:/task"; 
+
 	}
 	
 	private String getMessage(String code) {

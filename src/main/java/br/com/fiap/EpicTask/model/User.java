@@ -41,6 +41,11 @@ public class User implements UserDetails {
 		return "https://avatars.githubusercontent.com/" + gitHubUser;
 	}
 	
+	public String getFirstName() {
+		String[] nameArray = this.name.split(" ");
+		return nameArray[0];
+	}
+	
 	@Override
 	public String getPassword() {
 		return this.pass;

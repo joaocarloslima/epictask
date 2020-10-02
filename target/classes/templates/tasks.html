@@ -18,7 +18,13 @@
 		
 		<div class="tasks">
 			<div th:each="task : ${tasks}" class="card-task">
-				<img class="avatar" src="https://avatars.githubusercontent.com/joaocarloslima">
+				<span th:object="${task.user}">
+					<img 
+						th:if="${task.user != null}" 
+						class="avatar" 
+						th:src="*{avatar}" 
+						th:alt="*{name}">
+				</span>
 				<h2 th:text="${task.title}"></h2>
 				<div class="point">
 					<span class="material-icons">star</span>
@@ -35,7 +41,20 @@
 					</div>
 				</div>
 				
-				<button class="btn-hand"><span class="material-icons">pan_tool</span></button>
+				<a 
+					th:href="${'/task/drop/' + task.id}" 
+					th:if="${task.user != null && task.user.id==#authentication.getPrincipal().getId()}"  
+					class="btn btn-sm btn-down">
+					<span class="material-icons">pan_tool</span>
+				</a>
+				
+				<a 
+					th:href="${'/task/take/' + task.id}" 
+					th:if="${task.user == null}" 
+					class="btn btn-sm btn-hand">
+						<span class="material-icons">pan_tool</span>
+				</a>
+				
 				<a th:href="${'/task/' + task.id}" class="btn btn-sm yellow"><span class="material-icons">edit</span></a>
 			</div>
 				
