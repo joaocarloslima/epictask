@@ -1,5 +1,6 @@
 package br.com.fiap.EpicTask.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.EpicTask.model.Task;
+import br.com.fiap.EpicTask.model.User;
 import br.com.fiap.EpicTask.repository.TaskRepository;
+import br.com.fiap.EpicTask.service.TaskService;
 
 @Controller
 @RequestMapping("/task")
@@ -30,9 +34,12 @@ public class TaskController {
 	@Autowired
 	private MessageSource messageSource;
 
+	@Autowired
+	private TaskService service;
+
 	@GetMapping()
 	public ModelAndView list() {
-		List<Task> tasks = repository.findAll();
+		List<Task> tasks = service.findPendenting();
 		ModelAndView modelAndView = new ModelAndView("tasks");
 		modelAndView.addObject("tasks", tasks);
 		return modelAndView;
@@ -67,10 +74,40 @@ public class TaskController {
 	}
 	
 	@PostMapping("/update")
-	public String updateUser(@Valid Task task, BindingResult result, RedirectAttributes redirect) {
+	public String update(@Valid Task task, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "task_edit";
-		repository.save(task);
+		service.update(task);
 		redirect.addFlashAttribute("message", getMessage("message.edittask.success"));
+		return "redirect:/task"; 
+	}
+	
+	@GetMapping("/take/{id}")
+	public String take(@PathVariable Long id, Authentication auth) {
+		Optional<Task> task = repository.findById(id);
+		if (task.isPresent()) {
+			Task newTask = task.get();
+			
+			if (newTask.getUser() == null) {
+				User user = (User) auth.getPrincipal();
+				newTask.setUser(user);
+				repository.save(newTask);
+			}
+		}
+		return "redirect:/task"; 
+	}
+	
+	@GetMapping("/drop/{id}")
+	public String drop(@PathVariable Long id, Principal auth) {
+		Optional<Task> task = repository.findById(id);
+		if (task.isPresent()) {
+			Task newTask = task.get();
+			
+			if (newTask.getUser().getEmail().equals(auth.getName())) {
+				newTask.setUser(null);
+				repository.save(newTask);
+			}
+			
+		}
 		return "redirect:/task"; 
 	}
 	

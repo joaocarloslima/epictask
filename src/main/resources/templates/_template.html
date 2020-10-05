@@ -12,7 +12,12 @@
 		<ul>
 			<li><a href="/task" th:text="#{menu.task}" th:classappend="${page=='task'}?active">Tarefas</a></li>
 			<li><a href="#" th:text="#{menu.done}" th:classappend="${page=='done'}?active">Concluídos</a></li>
-			<li><a href="/user" th:text="#{menu.team}" th:classappend="${page=='team'}?active">Equipe</a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN')" ><a href="/user" th:text="#{menu.team}" th:classappend="${page=='team'}?active">Equipe</a></li>
+			<li>
+				<!-- span sec:authentication="name"></span -->
+				<span th:text="${#authentication.getPrincipal().getName()}"></span>
+				<a href="/logout"><span class="material-icons" title="sair">exit_to_app</span></a>
+			</li>
 		</ul>
 	</nav>
 

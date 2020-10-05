@@ -21,6 +21,7 @@
 		<div class="user-info">
 			<h4 th:text="${user.name}"></h4>
 			<p th:text="${user.email}"></p>
+			<p th:text="${user.point}"></p>
 		</div>
 		<div class="user-action">
 			<a th:href="${'/user/' + user.id }">
@@ -30,6 +31,17 @@
 				<span class="material-icons red">delete</span>
 			</a>
 		</div>
+	</div>
+	
+	<div>
+		<span th:if="${!users.first}">
+			<a th:href="@{ /user(page=${users.number-1) }">anterior</a>
+		</span>
+		<span th:text="${users.number+1} + ' de '"></span>
+		<span th:text="${users.totalPages}"></span>
+		<span th:if="${!users.last}">
+			<a th:href="${'?page=' + (users.number+1)}">próxima</a>
+		</span>
 	</div>
 	
 		

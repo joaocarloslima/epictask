@@ -8,8 +8,9 @@
 <div class="content">
 	<h1 th:text="#{form.title.edittask}"></h1>
 	
-	<form th:action="@{/task}" method="POST" th:object="${task}">
+	<form th:action="@{/task/update}" method="POST" th:object="${task}">
 		<input type="hidden" th:field="*{id}">
+		<input type="hidden" th:field="*{user}">
 	
 		<input 
 			type="text"
