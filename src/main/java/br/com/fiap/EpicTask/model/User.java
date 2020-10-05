@@ -1,11 +1,14 @@
 package br.com.fiap.EpicTask.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -37,6 +40,13 @@ public class User implements UserDetails {
 	@NotBlank (message = "{user.github.blank}")
 	private String gitHubUser;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<Role> roles = new ArrayList<Role>();
+	
+	private int point;
+	
+	
+	
 	public String getAvatar() {
 		return "https://avatars.githubusercontent.com/" + gitHubUser;
 	}
@@ -48,7 +58,7 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return this.roles;
 	}
 
 	@Override
@@ -79,6 +89,12 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public void toScore(int point) {
+		if (point > 0) {
+			this.setPoint(this.point + point);		
+		}
 	}
 	
 }
