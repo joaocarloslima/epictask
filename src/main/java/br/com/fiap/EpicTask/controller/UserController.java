@@ -1,13 +1,18 @@
 package br.com.fiap.EpicTask.controller;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +37,16 @@ public class UserController {
 	private MessageSource messageSource;
 
 	@GetMapping()
-	public ModelAndView user() {
-		List<User> users = repository.findAll();
+	@Cacheable(value = "users")
+	public ModelAndView user(
+			@PageableDefault(size=4, sort="name") Pageable pageable) {
+		Page<User> users = repository.findAll(pageable);
 		ModelAndView modelAndView = new ModelAndView("users");
+		String sort = users.getSort().stream()
+			.map(order -> order.getProperty() + "," + order.getDirection())
+			.collect(Collectors.joining(","));
 		modelAndView.addObject("users", users);
+		modelAndView.addObject("sort", sort);
 		return modelAndView;
 	}
 	
@@ -45,6 +56,7 @@ public class UserController {
 	}
 	
 	@PostMapping()
+	@CacheEvict(value = "users", allEntries = true)
 	public String save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "user_new";
 		user.setPass(SecurityConfiguration.passwordEncoder().encode(user.getPass()));
@@ -54,6 +66,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@CacheEvict(value = "users", allEntries = true)
+	
 	public String deleteUser(@PathVariable Long id, RedirectAttributes redirect) {
 		repository.deleteById(id);
 		redirect.addFlashAttribute("message", getMessage("message.deleteuser.success"));
@@ -69,6 +83,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
+	@CacheEvict(value = "users", allEntries = true)
 	public String updateUser(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) return "user_edit";
 		repository.save(user);

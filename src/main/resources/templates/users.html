@@ -36,6 +36,32 @@
 		</div>
 	</div>
 	
+	<div>
+		<span><a th:if="${!users.first}" th:href="@{/user(page=${users.number-1}, size=${users.size}, sort=${sort}) } ">anterior</a></span>
+		<span th:text="${(users.number+1) + ' de ' + users.totalPages}"></span>
+		<span><a th:if="${!users.last}" th:href="@{/user(page=${users.number+1}, size=${users.size}, sort=${sort})}">próximo</a></span>
+	</div>
+
+	<div>
+		<details>
+		<summary>ordenação</summary>
+			<div><a th:href="@{/user(page=${users.number}, size=${users.size}, sort='point')}">ordenar por pontos</a></div>
+			<div><a th:href="@{/user(page=${users.number}, size=${users.size}, sort='name')}">ordenar por nome</a></div>
+		</details>
+		
+		<details>
+		<summary>paginação</summary>
+			<div><a th:href="@{/user(page=${users.number}, size=5, sort=${sort})}">5 usuários por página</a></div>
+			<div><a th:href="@{/user(page=${users.number}, size=10, sort=${sort})}">10 usuários por página</a></div>
+			<div><a th:href="@{/user(page=${users.number}, size=20, sort=${sort})}">20 usuários por página</a></div>
+		</details>
+	</div>
+
+
+
+
+
+
 		
 </div>
 
