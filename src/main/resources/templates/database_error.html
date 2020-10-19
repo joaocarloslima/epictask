@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head th:include="_template :: head"></head>
+
+<body>
+	<h1>Epic Task</h1>
+
+	<div class="content">
+		<h2>Erro de Banco de Dados</h2>	
+		<p th:text="${error}"> </p>
+		<p th:text="${message}"> </p>
+		
+		<a href="/">home</a>
+	</div>
+
+
+</body>
+
+</html>
