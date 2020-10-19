@@ -34,14 +34,29 @@
 	</div>
 	
 	<div>
-
 		<a th:if="${!users.first}" 
-			th:href="${'?page=' + (users.number-1)}">anterior</a>
-
+			th:href="@{/user(page=${users.number-1} , size=${users.size} , sort=${sort} )}">anterior</a>
 		<span th:text="${(users.number+1) + ' de ' + users.totalPages}"></span>
-		
 		<a th:if="${!users.last}" 
-			th:href="${'?page=' + (users.number+1)}">proxima</a>
+			th:href="@{/user(page=${users.number+1} , size=${users.size} , sort=${sort} )}">proxima</a>
+	</div>
+	
+	<div>
+		<details>
+			<summary>ordenação</summary>
+			<ul>
+				<li><a th:href="@{/user(page=${users.number} , size=${users.size} , sort='name' )}">Nome</a></li>
+				<li><a th:href="@{/user(page=${users.number} , size=${users.size} , sort='point,DESC' )}">Pontos</a></li>
+			</ul>
+		</details>
+		<details>
+			<summary>paginação</summary>
+			<ul>
+				<li><a th:href="@{/user(page=${users.number} , size=5 , sort=${sort} )}">5 usuários por página</a></li>
+				<li><a th:href="@{/user(page=${users.number} , size=10 , sort=${sort} )}">10 usuários por página</a></li>
+				<li><a th:href="@{/user(page=${users.number} , size=20 , sort=${sort} )}">20 usuários por página</a></li>
+			</ul>
+		</details>
 	</div>
 	
 		
