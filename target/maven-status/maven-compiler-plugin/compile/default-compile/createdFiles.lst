@@ -1,0 +1,15 @@
+br/com/fiap/EpicTask/repository/TaskRepository.class
+br/com/fiap/EpicTask/security/DevSecurityConfiguration.class
+br/com/fiap/EpicTask/controller/LoginController.class
+br/com/fiap/EpicTask/model/User.class
+br/com/fiap/EpicTask/EpicTaskApplication.class
+br/com/fiap/EpicTask/security/SecurityConfiguration.class
+br/com/fiap/EpicTask/controller/TaskController.class
+br/com/fiap/EpicTask/exception/GlobalExceptionHandler.class
+br/com/fiap/EpicTask/model/Role.class
+br/com/fiap/EpicTask/repository/UserRepository.class
+br/com/fiap/EpicTask/exception/UserNotFoundException.class
+br/com/fiap/EpicTask/security/AuthenticationService.class
+br/com/fiap/EpicTask/service/TaskService.class
+br/com/fiap/EpicTask/controller/UserController.class
+br/com/fiap/EpicTask/model/Task.class

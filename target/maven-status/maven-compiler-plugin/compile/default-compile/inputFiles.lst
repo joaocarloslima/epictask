@@ -1,0 +1,15 @@
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/controller/TaskController.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/model/Role.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/controller/UserController.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/security/DevSecurityConfiguration.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/controller/LoginController.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/security/SecurityConfiguration.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/service/TaskService.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/repository/UserRepository.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/exception/UserNotFoundException.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/repository/TaskRepository.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/security/AuthenticationService.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/model/Task.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/EpicTaskApplication.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/model/User.java
+/home/joao/projetos/aulas/fiap/epictask/src/main/java/br/com/fiap/EpicTask/exception/GlobalExceptionHandler.java
