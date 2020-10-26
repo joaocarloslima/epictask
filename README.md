@@ -1,6 +1,6 @@
 # Epic Task
 
-### Selecione a turma
+### Selecione a turma desejada
 
 Turma | Branch Link
 ------------ | -------------
